@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Includes\logger\src\logger.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Display\displaywindow.cpp" />
+    <ClCompile Include="geometry\aabb.cpp" />
+    <ClCompile Include="geometry\ascii_ply.cpp" />
+    <ClCompile Include="geometry\bvh.cpp" />
+    <ClCompile Include="geometry\geometry.cpp" />
+    <ClCompile Include="geometry\mesh.cpp" />
+    <ClCompile Include="geometry\morton.cpp" />
+    <ClCompile Include="geometry\space.cpp" />
+    <ClCompile Include="geometry\triangle.cpp" />
+    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="rtmain.cpp" />
+    <ClCompile Include="Tracer\tracer.cpp" />
+    <ClCompile Include="Utils\cuda_helpers.cpp" />
+    <ClCompile Include="World.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Display\displaywindow.h" />
+    <ClInclude Include="Display\film.h" />
+    <ClInclude Include="geometry\aabb.h" />
+    <ClInclude Include="geometry\ascii_ply.h" />
+    <ClInclude Include="geometry\bvh.h" />
+    <ClInclude Include="geometry\commonheader.h" />
+    <ClInclude Include="geometry\GeometricObject.h" />
+    <ClInclude Include="geometry\mesh.h" />
+    <ClInclude Include="geometry\morton.h" />
+    <ClInclude Include="geometry\space.h" />
+    <ClInclude Include="geometry\triangle.h" />
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="tests\load_bunny.h" />
+    <ClInclude Include="Tracer\cudarenderkernel.h" />
+    <ClInclude Include="Tracer\tracer.h" />
+    <ClInclude Include="Utils\cuda_helpers.h" />
+    <ClInclude Include="Utils\spectrum.h" />
+    <ClInclude Include="World.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="geometry\geometrykernels.cu" />
+    <CudaCompile Include="Tracer\renderkernel.cu" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{978BBBD7-FD08-453E-8C2E-97139EAE0858}</ProjectGuid>
+    <RootNamespace>RT2019</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 9.2.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>G:\Includes\logger\include;G:\Includes\cudaHelpers;G:\Includes\thrust-1.8.1\thrust-1.8.1;G:\Includes\boost_1_67_0\boost_1_67_0;G:\Data\GL\freeglut-MSVC-3.0.0-2.mp\freeglut\include;G:\Data\GL\glew-2.1.0-win32\glew-2.1.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>G:\Data\GL\glew-2.1.0-win32\glew-2.1.0\lib\Release\x64;G:\Data\GL\freeglut-MSVC-3.0.0-2.mp\freeglut\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>G:\Includes\logger\include;G:\Includes\cudaHelpers;G:\Includes\thrust-1.8.1\thrust-1.8.1;G:\Includes\boost_1_67_0\boost_1_67_0;G:\Data\GL\freeglut-MSVC-3.0.0-2.mp\freeglut\include;G:\Data\GL\glew-2.1.0-win32\glew-2.1.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>G:\Data\GL\glew-2.1.0-win32\glew-2.1.0\lib\Release\x64;G:\Data\GL\freeglut-MSVC-3.0.0-2.mp\freeglut\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WIN64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;glew32.lib;freeglut.lib</AdditionalDependencies>
+    </Link>
+    <CudaCompile>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+    </CudaCompile>
+    <PostBuildEvent>
+      <Command>xcopy /d $(ProjectDir)External_Dlls\freeglut.dll $(OutDir)
+xcopy /d $(ProjectDir)External_Dlls\glew32.dll $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;glew32.lib;freeglut.lib</AdditionalDependencies>
+    </Link>
+    <CudaCompile>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+    </CudaCompile>
+    <PostBuildEvent>
+      <Command>xcopy /d $(ProjectDir)External_Dlls\freeglut.dll $(OutDir)
+xcopy /d $(ProjectDir)External_Dlls\glew32.dll $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 9.2.targets" />
+  </ImportGroup>
+</Project>
