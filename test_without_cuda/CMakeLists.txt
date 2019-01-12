@@ -1,0 +1,33 @@
+cmake_minimum_required(VERSION 3.10)
+set (CMAKE_CXX_STANDARD 17)
+include_directories(/home/awegsche/programs/boost_1_68_0)
+include_directories(/home/awegsche/Cpp/logger/include)
+include_directories(/home/awegsche/Cpp/typename)
+#include_directories(/home/awegsche/programs/thrust)
+include_directories(../RT2019)
+include_directories(.)
+link_directories(/home/awegsche/programs/boost_1_68_0/stage/lib)
+link_directories(/home/awegsche/Cpp/logger)
+
+#add_definitions(-DNLOGDEBUG)
+
+# Test
+project(Test)
+add_executable(BVHTest testmain.cpp)
+target_sources(BVHTest PUBLIC ../RT2019/geometry/mesh)
+target_sources(BVHTest PUBLIC ../RT2019/geometry/aabb)
+target_sources(BVHTest PUBLIC ../RT2019/geometry/triangle)
+target_sources(BVHTest PUBLIC ../RT2019/geometry/morton)
+target_sources(BVHTest PUBLIC ../RT2019/geometry/bvh)
+target_sources(BVHTest PUBLIC cuda_replacement)
+
+find_package(Threads REQUIRED)
+if(THREADS_HAVE_PTHREAD_ARG)
+  target_compile_options(BVHTest PUBLIC "-pthread")
+endif()
+if(CMAKE_THREAD_LIBS_INIT)
+    target_link_libraries(BVHTest "${CMAKE_THREAD_LIBS_INIT}")
+endif()
+
+target_link_libraries(BVHTest boost_chrono boost_system)
+target_link_libraries(BVHTest armadillo hdf5_cpp)
