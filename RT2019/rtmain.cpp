@@ -72,9 +72,9 @@ int main()
 		LOG(left << setw(PropKeyLength) << "  max Threads per Block: " << right << dev_props.maxThreadsPerBlock);
 		LOG(left << setw(PropKeyLength) << "  max Threads Dimension: " << right
 			<< dev_props.maxThreadsDim[0] << "/" << dev_props.maxThreadsDim[1] << "/" << dev_props.maxThreadsDim[2]);
-		LOG(left << setw(PropKeyLength) << "  max Threads per Multiprocessor:" << right << dev_props.maxThreadsPerMultiProcessor);
-		LOG(left << setw(PropKeyLength) << "  Single/Double PerfRatio:" << right << dev_props.singleToDoublePrecisionPerfRatio);
-		LOG(left << setw(PropKeyLength) << "  Clock Rate:" << right << dev_props.clockRate);
+		LOG(left << setw(PropKeyLength) << "  max Threads per Multiprocessor: " << right << dev_props.maxThreadsPerMultiProcessor);
+		LOG(left << setw(PropKeyLength) << "  Single/Double PerfRatio: " << right << dev_props.singleToDoublePrecisionPerfRatio);
+		LOG(left << setw(PropKeyLength) << "  Clock Rate: " << right << dev_props.clockRate);
 
 	}
 

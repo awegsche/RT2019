@@ -2,6 +2,7 @@
 #include "../geometry/ascii_ply.h"
 #include "../geometry/bvh.h"
 #include "../geometry/mesh.h"
+#include <memory>
 
 
 using namespace geometry;
@@ -20,7 +21,7 @@ BVH load_and_test_bunny() {
 	return bvh_bunny;
 }
 
-BVH load_and_test_simple() {
+std::unique_ptr<BVH> load_and_test_simple() {
 	LOG("creating simple primitive object (just a few triangles).");
 	mesh m;
 	m.insert_vertex(vec3(0, 1, 0));
@@ -30,8 +31,8 @@ BVH load_and_test_simple() {
 	m.faces.push_back(Triangle(0, 1, 2));
 	
 	fit_mesh_bb(m);
-	BVH b;
-	b.host_construct(m);
+    std::unique_ptr<BVH> b = std::make_unique<BVH>();
+	b->host_construct(m);
 	return b;
 	
 }

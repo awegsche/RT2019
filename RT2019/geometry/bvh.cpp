@@ -2,7 +2,8 @@
 
 #include <vector>
 #include <algorithm>
-#include <thrust/sort.h>
+#include <boost/compute/algorithm/sort_by_key.hpp>
+//#include <thrust/sort.h>
 
 #include <cuda_runtime.h>
 #include "../Utils/cuda_helpers.h"
@@ -51,7 +52,7 @@ void geometry::BVH::host_construct_radix(const mesh &original_mesh)
     for (auto tri : triangles) {
 		morton_codes.push_back(morton(tri, original_mesh.vertices));
     }
-	thrust::sort_by_key(morton_codes.begin(), morton_codes.end(), triangles.begin());
+    boost::compute::sort_by_key(morton_codes.begin(), morton_codes.end(), triangles.begin());
 
 	int n = morton_codes.size();
 	leaves[n - 1].minId = n - 1;
