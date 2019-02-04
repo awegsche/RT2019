@@ -13,8 +13,21 @@ namespace Display {
 }
 
 
-// initialiye the openGL window and setup everything that we might need
+// 
+/*! \brief initialiye the openGL window and setup everything that we might need
+ * 
+ * <+detailed description+>
+ * 
+ */
 int init_window();
+
+
+/*! \brief Initialize tracer for the display
+ * 
+ * <+detailed description+>
+ * 
+ * \param tracer [Tracer*] <+description of parameter+>
+ */
 int init_tracer(Tracer* tracer);
 
 void disp();
