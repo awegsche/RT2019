@@ -10,6 +10,7 @@ link_directories(/home/awegsche/programs/boost_1_68_0/stage/lib)
 link_directories(/home/awegsche/Cpp/logger)
 
 #add_definitions(-DNLOGDEBUG)
+add_definitions(-D__CPU_ONLY__)
 
 # Test
 project(Test)
@@ -21,6 +22,8 @@ target_sources(BVHTest PUBLIC ../RT2019/geometry/morton)
 target_sources(BVHTest PUBLIC ../RT2019/geometry/bvh)
 target_sources(BVHTest PUBLIC cuda_replacement)
 
+set(CMAKE_CXX_LINK_FLAGS "$(CMAKE_CXX_LINK_FLAGS} -latomic")
+
 find_package(Threads REQUIRED)
 if(THREADS_HAVE_PTHREAD_ARG)
   target_compile_options(BVHTest PUBLIC "-pthread")
@@ -31,3 +34,4 @@ endif()
 
 target_link_libraries(BVHTest boost_chrono boost_system)
 target_link_libraries(BVHTest armadillo hdf5_cpp)
+target_link_libraries(BVHTest OpenCL)

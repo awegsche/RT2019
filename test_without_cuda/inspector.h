@@ -63,16 +63,28 @@ void inspect<mesh>(const mesh& m) {
 }
 
 const string CMD_display_nodes("nodes");
+const string CMD_display_triangles("tris");
 template<>
 void inspect<BVH>(const BVH& b)
 {
     cout << "Terro BVH\n";
     cout << "numTriangles: " << b.numTriangles << "\n";
 
-    auto line = commandline();
+    bool cont = true;
 
-    if (CMD_display_nodes.compare(line) == 0) {
-       cout << "--- not yet implemented ----"; 
+    while(cont)
+    {    
+        string line = commandline();
+
+        if (CMD_quit.compare(line) == 0) {
+           cont = false; 
+        }
+        else if (CMD_display_nodes.compare(line) == 0) {
+            cout << "--- not yet implemented ----"; 
+        }
+        else if (CMD_display_triangles.compare(line) == 0) {
+            cout << "--- not yet implemented ----"; 
+        }
     }
     
 }

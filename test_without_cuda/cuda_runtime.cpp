@@ -9,9 +9,7 @@
 #include "cuda_runtime.h"
 
 
-cudaError_t cudaMalloc(void** dest, unsigned long size, void* src)
-{
-    *dest = src;
-    return cudaError::cudaSuccess;
-}
 
+cudaError_t cudaFree(void* ptr) {
+    free(ptr);
+}

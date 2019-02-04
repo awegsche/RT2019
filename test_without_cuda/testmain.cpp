@@ -45,6 +45,7 @@ int main () {
     b.host_construct(m);
 
     inspect(m);
+    inspect(b);
     
     return 0;
 }

@@ -6,14 +6,15 @@
 #include "geometry/aabb.h"
 #include <vector>
 #include <atomic>
+#include <cstring>
 
-using namespace std;
+using atomic_counter = std::atomic_int;
 
 namespace geometry {
 
 // redirect atomicAdd
 template<class T>
-T atomicAdd(T* addr, T amount) {
+T atomicAdd(std::atomic<T>* addr, T amount) {
     return atomic_fetch_add(addr, amount);
 }
 
@@ -39,7 +40,7 @@ AABB AABB::unite(const AABB & a, const AABB & b)
 
 
 __global__ void construct_bvh(BVHNode *nodes, BVHNode* leaves,
-        Triangle* tris, vec3* vertices, int numtriangles, int* nodeCounter,
+        Triangle* tris, vec3* vertices, int numtriangles, atomic_counter* nodeCounter,
         int i)
 {
 
@@ -53,7 +54,7 @@ __global__ void construct_bvh(BVHNode *nodes, BVHNode* leaves,
 
         uint current = leaf->parent;
 
-        int res = atomicAdd(nodeCounter + current, 1);
+        int res = atomicAdd(&nodeCounter[current], 1);
         printf("%d\n", i);
 
         // Go up and handle internal nodes
@@ -76,7 +77,7 @@ __global__ void construct_bvh(BVHNode *nodes, BVHNode* leaves,
                 return;
             }
             current = currentNode->parent;
-            res = atomicAdd(nodeCounter + current, 1);
+            res = atomicAdd(&nodeCounter[current], 1);
         }
     }
 }
@@ -85,11 +86,14 @@ void cuda_construct_bvh(const BVH& bvh) {
     //int blockSize = (bvh.numTriangles + numProcesses - 1) / numProcesses;
     int blockSize = bvh.numTriangles;
 
-    vector<int> nodeCounter(bvh.numTriangles);
+    atomic_counter* nodeCounter = new atomic_counter[bvh.numTriangles];
+    for (int i = 0; i < bvh.numTriangles; i++) {
+        nodeCounter[i].store(0);
+    }
 
     for (int i = 0; i < bvh.numTriangles; i++) {
     construct_bvh(bvh.device_nodes, bvh.device_leaves,
-            bvh.device_tris, bvh.device_vertices, bvh.numTriangles, nodeCounter.data().get(),
+            bvh.device_tris, bvh.device_vertices, bvh.numTriangles, nodeCounter,
             i);
     }
 
